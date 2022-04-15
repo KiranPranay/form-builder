@@ -4,7 +4,7 @@ class DBConnection{
     private $host = "localhost";
     private $username = "root";
     private $password = "";
-    private $database = "db_name";
+    private $database = "form_builder_db";
     
     public $conn;
     
