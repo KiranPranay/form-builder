@@ -1,24 +1,34 @@
-<?php 
+<?php
+session_start();
+if(isset($_COOKIE['member_login']) && $_COOKIE['member_login']!=''){
+    if(isset($_SESSION['USER_ID']) && $_SESSION['USER_ID']!=''){
 
+}else{
+    echo"<script>window.location.href='login.php'</script>";
+}
+}else{
+    echo"<script>window.location.href='login.php'</script>";
+}
 ob_start();
 require_once('./classes/DBConnection.php');
 $db = new DBConnection();
 
 $page = isset($_GET['p']) ? $_GET['p'] : "forms";
 ob_end_flush();
+$uid=$_SESSION['USER_ID'];
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <style>
-    /* canvas {
+/* canvas {
         height: 250px !important
     } */
-    
-    table th,
-    table td {
-        padding: 3px !important
-    }
+
+table th,
+table td {
+    padding: 3px !important
+}
 </style>
 
 <head>
@@ -31,9 +41,10 @@ ob_end_flush();
 <body class=''>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 border-bottom border-light mb-2" id="top-nav">
         <a class="navbar-brand" href="./">Form Builder App</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu"
+            aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         <div class="collapse navbar-collapse" id="nav-menu">
             <ul class="navbar-nav mr-auto">
@@ -50,10 +61,11 @@ ob_end_flush();
     </div>
 </body>
 <script>
-    $(function(){
-        var page = "<?php echo $page ?>";
+$(function() {
+    var page = "<?php echo $page ?>";
 
-        $('#nav-menu').find(".nav-item.nav-"+page).addClass("active")
-    })
+    $('#nav-menu').find(".nav-item.nav-" + page).addClass("active")
+})
 </script>
+
 </html>

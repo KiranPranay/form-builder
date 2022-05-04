@@ -7,6 +7,26 @@ Class Forms extends DBConnection{
 	public function __destruct(){
 		parent::__destruct();
 	}
+    public function save_meta(){
+        extract($_POST);
+        $resp = array();
+        $loop = true;
+        // $code = $form_code;
+
+        $data = " form_code = '$form_code' ";
+        $data .= ", meta_code = '$meta_code' ";
+        $data.= ", meta_type = '$meta_type' ";
+        $resp['data'] = "INSERT INTO `form_meta_info` set $data";
+        $save_form = $this->conn->query("INSERT INTO `form_meta_info` set $data");
+        if($save_form){
+            $resp['status'] = 'success';
+        }else{
+            $resp['status'] = 'failed';
+            $resp['error'] = $this->conn->error;
+        }
+        return json_encode($resp);
+
+    }
     public function save_form(){
         extract($_POST);
         $resp = array();
@@ -33,6 +53,7 @@ Class Forms extends DBConnection{
         $data .= ", title = '$title' ";
         $data.= ", description = '$description' ";
         $data.= ", fname = '$fname' ";
+        $data.= ", created_by = '$created_by' ";
 
         if(empty($form_code))
             $save_form = $this->conn->query("INSERT INTO `form_list` set $data ");
@@ -40,6 +61,7 @@ Class Forms extends DBConnection{
             $save_form = $this->conn->query("UPDATE `form_list` set $data where form_code = '$form_code' ");
         if($save_form){
             $resp['status'] = 'success';
+            $resp['form_code'] = "$code";
         }else{
             $resp['status'] = 'failed';
             $resp['error'] = $this->conn->error;
@@ -122,6 +144,9 @@ switch ($action) {
 	break;
     case 'delete_form':
 		echo $forms->delete_form();
+	break;
+    case 'save_meta':
+		echo $forms->save_meta();
 	break;
 	default:
 		// echo $sysset->index();
