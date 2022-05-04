@@ -210,12 +210,6 @@ $(function () {
     el.append(label);
     return el;
   }
-  function removeattribute() {
-    $(this).find("option[value='p']").removeAttr("selected", "selected");
-    $(this).find("option[value='checkbox']").removeAttr("selected", "selected");
-    $(this).find("option[value='radio']").removeAttr("selected", "selected");
-    $(this).find("option[value='file ']").removeAttr("selected", "selected");
-  }
 
   function create_radio_field(_field, _text) {
     var el = $("<div>");
